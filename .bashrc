@@ -85,6 +85,7 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 
 # Alias's to change the directory
 alias web='cd /var/www/html'
+alias projects='cd ~/Projects'
 
 # Alias's to mount ISO files
 # mount -o loop /home/NAMEOFISO.iso /home/ISOMOUNTDIR/
