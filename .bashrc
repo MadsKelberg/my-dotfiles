@@ -17,6 +17,9 @@ elif [ -f /etc/bash_completion ]; then
 	. /etc/bash_completion
 fi
 
+# Load NVM into terminal
+source /usr/share/nvm/init-nvm.sh
+
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.my-dotfiles/ --work-tree=$HOME'
 
 #######################################################

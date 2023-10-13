@@ -69,11 +69,11 @@ else
    git_pkgs="grimblast-git sddm-git hyprpicker-git waybar-hyprland-git"   hypr_pkgs="hyprland wl-clipboard wf-recorder rofi wlogout swaylock-effects dunst swaybg kitty"    
    git_pkgs="grimblast-git sddm-git hyprpicker-git waybar-hyprland-git"   font_pkgs="ttf-nerd-fonts-symbols-common otf-firamono-nerd inter-font otf-sora ttf-fantasque-nerd noto-fonts noto-fonts-emoji ttf-comfortaa"
    git_pkgs="grimblast-git sddm-git hyprpicker-git waybar-hyprland-git"   font_pkgs2="ttf-jetbrains-mono-nerd ttf-icomoon-feather ttf-iosevka-nerd adobe-source-code-pro-fonts"
-   git_pkgs="grimblast-git sddm-git hyprpicker-git waybar-hyprland-git"   app_pkgs="nwg-look-bin qt5ct btop jq gvfs swww unzip mousepad mpv playerctl pamixer noise-suppression-for-voice"
-   app_pkgs2="polkit-gnome neovim viewnior pavucontrol thunar ffmpegthumbnailer tumbler thunar-archive-plugin xdg-user-dirs"
+   git_pkgs="grimblast-git sddm-git hyprpicker-git waybar-hyprland-git"   app_pkgs="nwg-look-bin qt5ct autojump btop jq gvfs swww unzip mousepad mpv playerctl pamixer noise-suppression-for-voice"
+   app_pkgs2="polkit-gnome neovim vscodium-bin nvm viewnior pavucontrol thunar ffmpegthumbnailer tumbler thunar-archive-plugin xdg-user-dirs"
    theme_pkgs="nordic-theme starship "
 
-    #yay -R --noconfirm swaylock waybar
+    yay -R --noconfirm swaylock waybar
 
     if ! yay -S --noconfirm $git_pkgs $hypr_pkgs $font_pkgs $font_pkgs2 $app_pkgs $app_pkgs2 $theme_pkgs 2>&1 | tee -a $LOG; then
         print_error " Failed to install additional packages - please check the install.log \n"
@@ -140,6 +140,29 @@ else
     printf "${YELLOW} No bluetooth packages installed..\n"
 	fi
 
+### Setup programming environment ###
+read -n1 -rep 'Would you like to automaticly setup programming environment? (y,n)' APE
+if [[ $APE == "Y" || $APE == "y" ]]; then
+    read -n1 -rep 'Which node version would you like to use? (lts, latest, stable)' NVMV
+    if [[ $NVMV == "latest" ]]; then
+        nvm install node && nvm use node
+    elif [[ $NVMV == "stable" ]]; then
+        nvm install stable && nvm use stable
+    else 
+        nvm install --lts && nvm use --lts
+    fi
+    read -n1 -rep 'Would you like yarn? (y,n)' YARRRN
+    if [[ $YARRRN == "y" || $YARRRN == "Y"]]; then
+        # Installing yarn
+        yay -S --noconfirm yarn
+    fi
+    read -n1 -rep 'Would you like pnpm? (y,n)' PNPPM
+    if [[ $PNPPM == "y" || $PNPPM == "Y"]]; then
+        # Installing pnpm
+        corepack enable
+        corepack prepare pnpm@latest --activate
+    fi
+fi
     
 ### Script is done ###
 printf "\n${GREEN} Installation Completed.\n"
