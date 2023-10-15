@@ -17,9 +17,6 @@ elif [ -f /etc/bash_completion ]; then
 	. /etc/bash_completion
 fi
 
-# Load NVM into terminal
-source /usr/share/nvm/init-nvm.sh
-
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.my-dotfiles/ --work-tree=$HOME'
 
 #######################################################
@@ -627,7 +624,6 @@ elif [ -f "/usr/share/autojump/autojump.bash" ]; then
 else
 	echo "can't found the autojump script"
 fi
-
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
