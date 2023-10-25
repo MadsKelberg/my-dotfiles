@@ -117,7 +117,12 @@ require('lazy').setup({
       'rafamadriz/friendly-snippets',
     },
   },
-
+  {
+    -- Autopairs
+    'windwp/nvim-autopairs',
+    event = "InsertEnter",
+    opts = {}
+  },
   -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim', opts = {} },
   {
@@ -133,11 +138,15 @@ require('lazy').setup({
         changedelete = { text = '~' },
       },
       on_attach = function(bufnr)
-        vim.keymap.set('n', '<leader>hp', require('gitsigns').preview_hunk, { buffer = bufnr, desc = 'Preview git hunk' })
-
-        -- don't override the built-in and fugitive keymaps
         local gs = package.loaded.gitsigns
-        vim.keymap.set({ 'n', 'v' }, ']c', function()
+        local function map(mode, l, r, opts)
+          opts = opts or {}
+          opts.buffer = bufnr
+          vim.keymap.set(mode, l, r, opts)
+        end
+        map('n', '<leader>hp', require('gitsigns').preview_hunk, { desc = 'Preview git hunk' })
+        -- don't override the built-in and fugitive keymaps
+        map({ 'n', 'v' }, ']c', function()
           if vim.wo.diff then
             return ']c'
           end
@@ -146,7 +155,7 @@ require('lazy').setup({
           end)
           return '<Ignore>'
         end, { expr = true, buffer = bufnr, desc = 'Jump to next hunk' })
-        vim.keymap.set({ 'n', 'v' }, '[c', function()
+        map({ 'n', 'v' }, '[c', function()
           if vim.wo.diff then
             return '[c'
           end
@@ -155,8 +164,17 @@ require('lazy').setup({
           end)
           return '<Ignore>'
         end, { expr = true, buffer = bufnr, desc = 'Jump to previous hunk' })
+        map('n', '<leader>hb', function () gs.blame_line{full=true} end, { desc = 'View git hunk blame' })
+        map('n', '<leader>hc', gs.toggle_current_line_blame, { desc = 'Toggle git line blame' })
+        map('n', '<leader>hd', gs.diffthis, { desc = 'View diff' })
+        map('n', '<leader>td', gs.toggle_deleted, { desc = 'View deleted lines'})
       end,
     },
+  },
+  {
+    'pmizio/typescript-tools.nvim',
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig"},
+    opts = {},
   },
 
   {
@@ -476,7 +494,7 @@ local servers = {
   -- gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
-  tsserver = {},
+  -- tsserver = {},
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
 
   lua_ls = {
