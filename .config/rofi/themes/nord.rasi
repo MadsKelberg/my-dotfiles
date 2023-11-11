@@ -6,7 +6,6 @@
  *
  */
 
-
 * {
 	nord0: #2e3440;
 	nord1: #3b4252;
@@ -41,8 +40,8 @@ window {
     location: center;
     anchor:   center;
     transparency: "screenshot";
-    padding: 10px;
-    border:  0px;
+    padding: 0px;
+    border:  1px;
     border-radius: 6px;
 
     background-color: @transparent;
