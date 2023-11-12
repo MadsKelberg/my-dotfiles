@@ -7,4 +7,11 @@ return {
       require("nordic").load()
     end,
   },
+
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "nordic",
+    },
+  },
 }
