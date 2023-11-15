@@ -1,60 +1,77 @@
+* {
+  background-image: none;
+}
 window {
-    font-family: monospace;
-    font-size: 14pt;
-    color: #cdd6f4; /* text */
-    background-color: rgba(30, 30, 46, 0.5);
+  font-family: monospace;
+  font-size: 14pt;
+  /* color: #d8dee9; text */
+  background-color: rgba(46, 52, 64, 0.9);
 }
 
 button {
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 25%;
-    border: none;
-    background-color: rgba(30, 30, 46, 0);
-    margin: 5px;
-    transition: box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  color: #2e3440;
+  margin: 5px;
+  transition:
+    box-shadow 0.2s ease-in-out,
+    background-color 0.2s ease-in-out;
+  background-color: #3b4252;
+  border-style: solid;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 25%;
 }
 
+button:focus,
+button:active,
 button:hover {
-    background-color: rgba(49, 50, 68, 0.1);
+  color: #e5e9f0;
+  outline-style: none;
 }
-
+button:hover {
+  background-color: #2e3440;
+  border-color: #eceff4;
+}
 button:focus {
-    background-color: #cba6f7;
-    color: #1e1e2e;
+  background-color: #434c5e;
+  border-color: #eceff4;
 }
 
 #lock {
-    background-image: image(url("./lock.png"));
+  background-image: image(url("./lock.svg"));
 }
+#lock:hover,
 #lock:focus {
-    background-image: image(url("./lock-hover.png"));
+  background-image: image(url("./lock_focus.svg"));
 }
 
 #logout {
-    background-image: image(url("./logout.png"));
+  background-image: image(url("./logout.svg"));
 }
+#logout:hover,
 #logout:focus {
-    background-image: image(url("./logout-hover.png"));
+  background-image: image(url("./logout_focus.svg"));
 }
 
 #suspend {
-    background-image: image(url("./sleep.png"));
+  background-image: image(url("./sleep.svg"));
 }
+#suspend:hover,
 #suspend:focus {
-    background-image: image(url("./sleep-hover.png"));
+  background-image: image(url("./sleep_focus.svg"));
 }
 
 #shutdown {
-    background-image: image(url("./power.png"));
+  background-image: image(url("./power.svg"));
 }
+#shutdown:hover,
 #shutdown:focus {
-    background-image: image(url("./power-hover.png"));
+  background-image: image(url("./power_focus.svg"));
 }
 
 #reboot {
-    background-image: image(url("./restart.png"));
+  background-image: image(url("./restart.svg"));
 }
+#reboot:hover,
 #reboot:focus {
-    background-image: image(url("./restart-hover.png"));
+  background-image: image(url("./restart_focus.svg"));
 }

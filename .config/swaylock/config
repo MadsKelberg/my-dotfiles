@@ -2,9 +2,9 @@ daemonize
 show-failed-attempts
 clock
 effect-blur=5x5
-color=1f1d2e80
 font="Inter"
 indicator
+image=~/.wallpapers/wallpaper.png
 indicator-radius=200
 indicator-thickness=20
 line-color=1f1d2e
