@@ -65,13 +65,13 @@ echo
 if [[ $inst =~ ^[Nn]$ ]]; then
     printf "${YELLOW} No packages installed. Goodbye! \n"
 else
-   git_pkgs="grimblast-git sddm-git hyprpicker-git waybar-hyprland-git"
-   git_pkgs="grimblast-git sddm-git hyprpicker-git waybar-hyprland-git"   hypr_pkgs="hyprland wl-clipboard wf-recorder rofi wlogout swaylock-effects dunst swaybg kitty"    
-   git_pkgs="grimblast-git sddm-git hyprpicker-git waybar-hyprland-git"   font_pkgs="ttf-nerd-fonts-symbols-common otf-firamono-nerd inter-font otf-sora ttf-fantasque-nerd noto-fonts noto-fonts-emoji ttf-comfortaa"
-   git_pkgs="grimblast-git sddm-git hyprpicker-git waybar-hyprland-git"   font_pkgs2="ttf-jetbrains-mono-nerd ttf-icomoon-feather ttf-iosevka-nerd adobe-source-code-pro-fonts"
-   git_pkgs="grimblast-git sddm-git hyprpicker-git waybar-hyprland-git"   app_pkgs="nwg-look-bin qt5ct autojump btop jq gvfs swww unzip mousepad mpv playerctl pamixer noise-suppression-for-voice"
-   app_pkgs2="polkit-gnome neovim vscodium-bin nvm viewnior pavucontrol thunar ffmpegthumbnailer tumbler thunar-archive-plugin xdg-user-dirs"
-   theme_pkgs="nordic-theme starship "
+   git_pkgs="grimblast-git sddm-git hyprpicker-git sway-audio-idle-inhibit-git"
+   hypr_pkgs="hyprland xdg-desktop-portal-hyprland wl-clipboard wf-recorder rofi wlogout swayidle swaylock-effects dunst swaybg kitty"    
+   font_pkgs="ttf-nerd-fonts-symbols-common otf-firamono-nerd inter-font otf-sora ttf-fantasque-nerd noto-fonts noto-fonts-emoji ttf-comfortaa"
+   font_pkgs2="ttf-jetbrains-mono-nerd ttf-icomoon-feather ttf-iosevka-nerd adobe-source-code-pro-fonts"
+   app_pkgs="nwg-look-bin qt5ct autojump btop jq gvfs swww unzip mousepad mpv playerctl pamixer noise-suppression-for-voice"
+   app_pkgs2="bash-completion polkit-gnome neovim vscodium-bin nvm viewnior pavucontrol thunar ffmpegthumbnailer tumbler thunar-archive-plugin xdg-user-dirs"
+   theme_pkgs="nordic-theme starship"
 
     yay -R --noconfirm swaylock waybar
 
@@ -89,15 +89,7 @@ fi
 read -n1 -rep "${CAT} Would you like to copy config files? (y,n)" CFG
 if [[ $CFG =~ ^[Yy]$ ]]; then
     printf " Copying config files...\n"
-    cp -r dotconfig/dunst ~/.config/ 2>&1 | tee -a $LOG
-    cp -r dotconfig/hypr ~/.config/ 2>&1 | tee -a $LOG
-    cp -r dotconfig/kitty ~/.config/ 2>&1 | tee -a $LOG
-    cp -r dotconfig/pipewire ~/.config/ 2>&1 | tee -a $LOG
-    cp -r dotconfig/rofi ~/.config/ 2>&1 | tee -a $LOG
-    cp -r dotconfig/swaylock ~/.config/ 2>&1 | tee -a $LOG
-    cp -r dotconfig/waybar ~/.config/ 2>&1 | tee -a $LOG
-    cp -r dotconfig/wlogout ~/.config/ 2>&1 | tee -a $LOG
-    
+    cp -r .config/* ~/.config/ 2>&1 | tee -a $LOG
     # Set some files as exacutable 
     chmod +x ~/.config/hypr/xdg-portal-hyprland
     chmod +x ~/.config/waybar/scripts/waybar-wttr.py
@@ -110,6 +102,7 @@ wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.1/CascadiaCo
 unzip '*.zip' -d $HOME/Downloads/nerdfonts/
 rm -rf *.zip
 sudo cp -R $HOME/Downloads/nerdfonts/ /usr/share/fonts/
+rm -rf $HOME/Downloads/nerdfonts
 
 fc-cache -rv  
 
