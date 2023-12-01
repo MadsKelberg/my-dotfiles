@@ -4,10 +4,17 @@ return {
     lazy = false,
     priority = 1000,
     config = function()
-      require("nordic").load()
+      require("nordic").setup({
+        telescope = {
+          style = "classic",
+        },
+        noice = {
+          -- Available styles: `classic`, `flat`.
+          style = "classic",
+        },
+      })
     end,
   },
-
   {
     "LazyVim/LazyVim",
     opts = {
