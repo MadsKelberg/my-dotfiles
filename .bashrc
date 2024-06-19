@@ -7,7 +7,7 @@ iatest=$(expr index "$-" i)
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
-	 . /etc/bashrc
+	. /etc/bashrc
 fi
 
 # Enable bash programmable completion features in interactive shells
@@ -141,20 +141,20 @@ alias bd='cd "$OLDPWD"'
 alias rmd='/bin/rm  --recursive --force --verbose '
 
 # Alias's for multiple directory listing commands
-alias la='ls -Alh' # show hidden files
+alias la='ls -Alh'                # show hidden files
 alias ls='ls -aFh --color=always' # add colors and file type extensions
-alias lx='ls -lXBh' # sort by extension
-alias lk='ls -lSrh' # sort by size
-alias lc='ls -lcrh' # sort by change time
-alias lu='ls -lurh' # sort by access time
-alias lr='ls -lRh' # recursive ls
-alias lt='ls -ltrh' # sort by date
-alias lm='ls -alh |more' # pipe through 'more'
-alias lw='ls -xAh' # wide listing format
-alias ll='ls -Fls' # long listing format
-alias labc='ls -lap' #alphabetical sort
-alias lf="ls -l | egrep -v '^d'" # files only
-alias ldir="ls -l | egrep '^d'" # directories only
+alias lx='ls -lXBh'               # sort by extension
+alias lk='ls -lSrh'               # sort by size
+alias lc='ls -lcrh'               # sort by change time
+alias lu='ls -lurh'               # sort by access time
+alias lr='ls -lRh'                # recursive ls
+alias lt='ls -ltrh'               # sort by date
+alias lm='ls -alh |more'          # pipe through 'more'
+alias lw='ls -xAh'                # wide listing format
+alias ll='ls -Fls'                # long listing format
+alias labc='ls -lap'              #alphabetical sort
+alias lf="ls -l | egrep -v '^d'"  # files only
+alias ldir="ls -l | egrep '^d'"   # directories only
 
 # alias chmod commands
 alias mx='chmod a+x'
@@ -220,8 +220,7 @@ alias kssh="kitty +kitten ssh"
 #######################################################
 
 # Use the best version of pico installed
-edit ()
-{
+edit() {
 	if [ "$(type -t jpico)" = "file" ]; then
 		# Use JOE text editor http://joe-editor.sourceforge.net/
 		jpico -nonotice -linums -nobackups "$@"
@@ -233,8 +232,7 @@ edit ()
 		nvim "$@"
 	fi
 }
-sedit ()
-{
+sedit() {
 	if [ "$(type -t jpico)" = "file" ]; then
 		# Use JOE text editor http://joe-editor.sourceforge.net/
 		sudo jpico -nonotice -linums -nobackups "$@"
@@ -248,22 +246,22 @@ sedit ()
 }
 
 # Extracts any archive(s) (if unp isn't installed)
-extract () {
+extract() {
 	for archive in "$@"; do
-		if [ -f "$archive" ] ; then
+		if [ -f "$archive" ]; then
 			case $archive in
-				*.tar.bz2)   tar xvjf $archive    ;;
-				*.tar.gz)    tar xvzf $archive    ;;
-				*.bz2)       bunzip2 $archive     ;;
-				*.rar)       rar x $archive       ;;
-				*.gz)        gunzip $archive      ;;
-				*.tar)       tar xvf $archive     ;;
-				*.tbz2)      tar xvjf $archive    ;;
-				*.tgz)       tar xvzf $archive    ;;
-				*.zip)       unzip $archive       ;;
-				*.Z)         uncompress $archive  ;;
-				*.7z)        7z x $archive        ;;
-				*)           echo "don't know how to extract '$archive'..." ;;
+			*.tar.bz2) tar xvjf $archive ;;
+			*.tar.gz) tar xvzf $archive ;;
+			*.bz2) bunzip2 $archive ;;
+			*.rar) rar x $archive ;;
+			*.gz) gunzip $archive ;;
+			*.tar) tar xvf $archive ;;
+			*.tbz2) tar xvjf $archive ;;
+			*.tgz) tar xvzf $archive ;;
+			*.zip) unzip $archive ;;
+			*.Z) uncompress $archive ;;
+			*.7z) 7z x $archive ;;
+			*) echo "don't know how to extract '$archive'..." ;;
 			esac
 		else
 			echo "'$archive' is not a valid file!"
@@ -272,8 +270,7 @@ extract () {
 }
 
 # Searches for text in all files in the current folder
-ftext ()
-{
+ftext() {
 	# -i case-insensitive
 	# -I ignore binary files
 	# -H causes filename to be printed
@@ -285,11 +282,10 @@ ftext ()
 }
 
 # Copy file with a progress bar
-cpp()
-{
+cpp() {
 	set -e
-	strace -q -ewrite cp -- "${1}" "${2}" 2>&1 \
-	| awk '{
+	strace -q -ewrite cp -- "${1}" "${2}" 2>&1 |
+		awk '{
 	count += $NF
 	if (count % 10 == 0) {
 		percent = count / total_size * 100
@@ -306,9 +302,8 @@ cpp()
 }
 
 # Copy and go to the directory
-cpg ()
-{
-	if [ -d "$2" ];then
+cpg() {
+	if [ -d "$2" ]; then
 		cp "$1" "$2" && cd "$2"
 	else
 		cp "$1" "$2"
@@ -316,9 +311,8 @@ cpg ()
 }
 
 # Move and go to the directory
-mvg ()
-{
-	if [ -d "$2" ];then
+mvg() {
+	if [ -d "$2" ]; then
 		mv "$1" "$2" && cd "$2"
 	else
 		mv "$1" "$2"
@@ -326,21 +320,18 @@ mvg ()
 }
 
 # Create and go to the directory
-mkdirg ()
-{
+mkdirg() {
 	mkdir -p "$1"
 	cd "$1"
 }
 
 # Goes up a specified number of directories  (i.e. up 4)
-up ()
-{
+up() {
 	local d=""
 	limit=$1
-	for ((i=1 ; i <= limit ; i++))
-		do
-			d=$d/..
-		done
+	for ((i = 1; i <= limit; i++)); do
+		d=$d/..
+	done
 	d=$(echo $d | sed 's/^\///')
 	if [ -z "$d" ]; then
 		d=..
@@ -359,39 +350,37 @@ up ()
 # }
 
 # Returns the last 2 fields of the working directory
-pwdtail ()
-{
-	pwd|awk -F/ '{nlast = NF -1;print $nlast"/"$NF}'
+pwdtail() {
+	pwd | awk -F/ '{nlast = NF -1;print $nlast"/"$NF}'
 }
 
 # Show the current distribution
-distribution ()
-{
+distribution() {
 	local dtype
 	# Assume unknown
 	dtype="unknown"
-	
+
 	# First test against Fedora / RHEL / CentOS / generic Redhat derivative
 	if [ -r /etc/rc.d/init.d/functions ]; then
 		source /etc/rc.d/init.d/functions
-		[ zz`type -t passed 2>/dev/null` == "zzfunction" ] && dtype="redhat"
-	
+		[ zz$(type -t passed 2>/dev/null) == "zzfunction" ] && dtype="redhat"
+
 	# Then test against SUSE (must be after Redhat,
 	# I've seen rc.status on Ubuntu I think? TODO: Recheck that)
 	elif [ -r /etc/rc.status ]; then
 		source /etc/rc.status
-		[ zz`type -t rc_reset 2>/dev/null` == "zzfunction" ] && dtype="suse"
-	
+		[ zz$(type -t rc_reset 2>/dev/null) == "zzfunction" ] && dtype="suse"
+
 	# Then test against Debian, Ubuntu and friends
 	elif [ -r /lib/lsb/init-functions ]; then
 		source /lib/lsb/init-functions
-		[ zz`type -t log_begin_msg 2>/dev/null` == "zzfunction" ] && dtype="debian"
-	
+		[ zz$(type -t log_begin_msg 2>/dev/null) == "zzfunction" ] && dtype="debian"
+
 	# Then test against Gentoo
 	elif [ -r /etc/init.d/functions.sh ]; then
 		source /etc/init.d/functions.sh
-		[ zz`type -t ebegin 2>/dev/null` == "zzfunction" ] && dtype="gentoo"
-	
+		[ zz$(type -t ebegin 2>/dev/null) == "zzfunction" ] && dtype="gentoo"
+
 	# For Mandriva we currently just test if /etc/mandriva-release exists
 	# and isn't empty (TODO: Find a better way :)
 	elif [ -s /etc/mandriva-release ]; then
@@ -406,8 +395,7 @@ distribution ()
 }
 
 # Show the current version of the operating system
-ver ()
-{
+ver() {
 	local dtype
 	dtype=$(distribution)
 
@@ -439,8 +427,7 @@ ver ()
 }
 
 # Automatically install the needed support files for this .bashrc file
-install_bashrc_support ()
-{
+install_bashrc_support() {
 	local dtype
 	dtype=$(distribution)
 
@@ -468,8 +455,7 @@ install_bashrc_support ()
 }
 
 # Show current network information
-netinfo ()
-{
+netinfo() {
 	echo "--------------- Network Information ---------------"
 	/sbin/ifconfig | awk /'inet addr/ {print $2}'
 	echo ""
@@ -483,33 +469,33 @@ netinfo ()
 
 # IP address lookup
 alias whatismyip="whatsmyip"
-function whatsmyip ()
-{
+function whatsmyip() {
 	# Dumps a list of all IP addresses for every device
 	# /sbin/ifconfig |grep -B1 "inet addr" |awk '{ if ( $1 == "inet" ) { print $2 } else if ( $2 == "Link" ) { printf "%s:" ,$1 } }' |awk -F: '{ print $1 ": " $3 }';
-	
+
 	### Old commands
 	# Internal IP Lookup
 	#echo -n "Internal IP: " ; /sbin/ifconfig eth0 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}'
-#
-#	# External IP Lookup
+	#
+	#	# External IP Lookup
 	#echo -n "External IP: " ; wget http://smart-ip.net/myip -O - -q
-	
+
 	# Internal IP Lookup.
-	if [ -e /sbin/ip ];
-	then
-		echo -n "Internal IP: " ; /sbin/ip addr show wlan0 | grep "inet " | awk -F: '{print $1}' | awk '{print $2}'
+	if [ -e /sbin/ip ]; then
+		echo -n "Internal IP: "
+		/sbin/ip addr show wlan0 | grep "inet " | awk -F: '{print $1}' | awk '{print $2}'
 	else
-		echo -n "Internal IP: " ; /sbin/ifconfig wlan0 | grep "inet " | awk -F: '{print $1} |' | awk '{print $2}'
+		echo -n "Internal IP: "
+		/sbin/ifconfig wlan0 | grep "inet " | awk -F: '{print $1} |' | awk '{print $2}'
 	fi
 
-	# External IP Lookup 
-	echo -n "External IP: " ; curl -s ifconfig.me
+	# External IP Lookup
+	echo -n "External IP: "
+	curl -s ifconfig.me
 }
 
 # View Apache logs
-apachelog ()
-{
+apachelog() {
 	if [ -f /etc/httpd/conf/httpd.conf ]; then
 		cd /var/log/httpd && ls -xAh && multitail --no-repeat -c -s 2 /var/log/httpd/*_log
 	else
@@ -518,8 +504,7 @@ apachelog ()
 }
 
 # Edit the Apache configuration
-apacheconfig ()
-{
+apacheconfig() {
 	if [ -f /etc/httpd/conf/httpd.conf ]; then
 		sedit /etc/httpd/conf/httpd.conf
 	elif [ -f /etc/apache2/apache2.conf ]; then
@@ -532,8 +517,7 @@ apacheconfig ()
 }
 
 # Edit the PHP configuration file
-phpconfig ()
-{
+phpconfig() {
 	if [ -f /etc/php.ini ]; then
 		sedit /etc/php.ini
 	elif [ -f /etc/php/php.ini ]; then
@@ -552,8 +536,7 @@ phpconfig ()
 }
 
 # Edit the MySQL configuration file
-mysqlconfig ()
-{
+mysqlconfig() {
 	if [ -f /etc/my.cnf ]; then
 		sedit /etc/my.cnf
 	elif [ -f /etc/mysql/my.cnf ]; then
@@ -574,7 +557,7 @@ mysqlconfig ()
 }
 
 # For some reason, rot13 pops up everywhere
-rot13 () {
+rot13() {
 	if [ $# -eq 0 ]; then
 		tr '[a-m][n-z][A-M][N-Z]' '[n-z][a-m][N-Z][A-M]'
 	else
@@ -583,11 +566,10 @@ rot13 () {
 }
 
 # Trim leading and trailing spaces (for scripts)
-trim()
-{
+trim() {
 	local var=$*
-	var="${var#"${var%%[![:space:]]*}"}"  # remove leading whitespace characters
-	var="${var%"${var##*[![:space:]]}"}"  # remove trailing whitespace characters
+	var="${var#"${var%%[![:space:]]*}"}" # remove leading whitespace characters
+	var="${var%"${var##*[![:space:]]}"}" # remove trailing whitespace characters
 	echo -n "$var"
 }
 # GitHub Titus Additions
@@ -595,7 +577,7 @@ trim()
 gcom() {
 	git add .
 	git commit -m "$1"
-	}
+}
 lazyg() {
 	git add .
 	git commit -m "$1"
@@ -626,9 +608,16 @@ else
 fi
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 
 # tabtab source for packages
 # uninstall by removing these lines
 [ -f ~/.config/tabtab/bash/__tabtab.bash ] && . ~/.config/tabtab/bash/__tabtab.bash || true
+
+# Android studio addeed to path
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+export XDG_SCREENSHOTS_DIR=$HOME/Screenshots

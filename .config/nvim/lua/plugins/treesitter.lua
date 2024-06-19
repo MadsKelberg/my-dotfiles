@@ -1,29 +1,18 @@
 return {
-
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = {
-      ensure_installed = {
-        "bash",
-        "html",
-        "javascript",
-        "json",
-        "lua",
-        "markdown",
-        "markdown_inline",
-        "python",
-        "query",
-        "regex",
-        "tsx",
-        "typescript",
-        "vim",
-        "yaml",
-      },
-    },
-  },
-  {
-    "windwp/nvim-ts-autotag",
-    event = "LazyFile",
-    opts = {},
-  },
+	{
+		"nvim-treesitter/nvim-treesitter",
+		event = { "VeryLazy" },
+		build = ":TSUpdate",
+		config = function()
+			local config = require("nvim-treesitter.configs")
+			config.setup({
+				auto_install = true,
+				highlight = { enable = true },
+				indent = { enable = true },
+			})
+		end,
+	},
+	{
+		"nvim-treesitter/nvim-treesitter-context",
+	},
 }
